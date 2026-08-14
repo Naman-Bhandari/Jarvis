@@ -34,4 +34,4 @@ if not events:
 else:
     for event in events:
         start = event["start"].get("dateTime", event["start"].get("date"))
-        print(start, "-", event["summary"])
+        print(event["id"], "-", start, "-", event["summary"])

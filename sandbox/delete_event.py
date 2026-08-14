@@ -12,12 +12,5 @@ if creds.expired and creds.refresh_token:
 
 service = build("calendar", "v3", credentials=creds)
 
-event = {
-    'summary': 'GYM',
-    'start': {"dateTime": "2026-08-15T18:00:00+05:30", "timeZone": "Asia/Kolkata"},
-    "end": {"dateTime": "2026-08-15T19:00:00+05:30", "timeZone": "Asia/Kolkata"}
-}
-
-created_event = service.events().insert(calendarId="primary", body=event).execute()
-
-print("Event created:", created_event.get("htmlLink"),"\n\nEvent ID: ",created_event.get("id"))
+deletes = service.events().delete(calendarId="primary",eventId="ggmpfb0vft3uriv6mek1b3rab8").execute()
+print("Event Deleted")

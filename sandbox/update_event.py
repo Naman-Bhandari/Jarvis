@@ -12,12 +12,16 @@ if creds.expired and creds.refresh_token:
 
 service = build("calendar", "v3", credentials=creds)
 
-event = {
+event_id = "app42deqolilrgip9jpmf2mvg0"
+
+updated_event = {
     'summary': 'GYM',
-    'start': {"dateTime": "2026-08-15T18:00:00+05:30", "timeZone": "Asia/Kolkata"},
-    "end": {"dateTime": "2026-08-15T19:00:00+05:30", "timeZone": "Asia/Kolkata"}
+    'start': {"dateTime": "2026-08-15T19:00:00+05:30", "timeZone": "Asia/Kolkata"},
+    "end": {"dateTime": "2026-08-15T20:00:00+05:30", "timeZone": "Asia/Kolkata"}
 }
 
-created_event = service.events().insert(calendarId="primary", body=event).execute()
+# your .update() call goes here
 
-print("Event created:", created_event.get("htmlLink"),"\n\nEvent ID: ",created_event.get("id"))
+updates = service.events().update(calendarId="primary",eventId=event_id,body=updated_event).execute()
+
+print("Event updated:", updates.get("htmlLink"))
