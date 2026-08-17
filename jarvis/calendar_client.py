@@ -1,5 +1,4 @@
 import datetime
-import datetime
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
@@ -30,3 +29,13 @@ class CalendarClient:
         ).execute()
 
         return events_result.get("items", [])
+
+    def create_event(self, summary, start_time, end_time, timezone='Asia/Kolkata'):
+        event = {
+            "summary": summary,
+            "start": {"dateTime":start_time, "timeZone":timezone},
+            "end": {"dateTime":end_time, "timeZone":timezone}            
+        }
+
+        created_event = self.service.events().insert(calendarId="primary",body=event).execute()
+        return created_event
