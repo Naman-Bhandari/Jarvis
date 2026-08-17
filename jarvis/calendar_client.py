@@ -39,3 +39,26 @@ class CalendarClient:
 
         created_event = self.service.events().insert(calendarId="primary",body=event).execute()
         return created_event
+
+
+    def update_event(self, eventid, summary, start_time, end_time, timezone="Asia/Kolkata"):
+        updated_event = {
+            "summary":summary, 
+            "start": {"dateTime":start_time, "timeZone":timezone},
+            "end": {"dateTime":end_time, "timeZone":timezone}
+        }
+        updates = self.service.events().update(calendarId="primary",eventId=eventid, body=updated_event).execute()
+        return updates
+
+    def delete_event(self, eventid):
+        try:
+            self.service.events().delete(calendarId="primary",eventId=eventid).execute()
+            return True
+        except Exception as e:
+            print(f"Failed to delete event {eventid}: {e}")
+            return False
+
+    def find_events(self, title, days=7):
+        recent_events = self.list_events(days=days)
+        matches = [event for event in recent_events if title.casefold() in event["summary"].casefold()]
+        return matches

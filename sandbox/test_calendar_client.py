@@ -7,10 +7,21 @@ for event in events:
     start = event["start"].get("dateTime",event["start"].get("date"))
     print(event["id"],"-", start, "-", event["summary"])
 
-new_event = client.create_event(
-    summary="DSA Practice",
-    start_time="2026-08-20T21:00:00+05:30",
-    end_time="2026-08-20T22:00:00+05:30"
+# new_event = client.create_event(
+#     summary="DSA Practice",
+#     start_time="2026-08-20T21:00:00+05:30",
+#     end_time="2026-08-20T22:00:00+05:30"
+# )
+
+# print("Created:", new_event.get("htmlLink"))
+
+client.create_event(
+    summary="DSA",
+    start_time="2026-08-20T09:00:00+05:30",
+    end_time="2026-08-20T10:00:00+05:30"
 )
 
-print("Created:", new_event.get("htmlLink"))
+matches = client.find_events("DSA")
+for m in matches:
+    start = m["start"].get("dateTime", m["start"].get("date"))
+    print(m["id"], "-", start, "-", m["summary"])
